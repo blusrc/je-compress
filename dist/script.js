@@ -29,8 +29,10 @@ function processImages() {
             // Read all files in the input folder
             const files = fs_1.default.readdirSync(inputFolder);
             for (const file of files) {
+                // Sanitize file name
+                const sanitizedFileName = file.replace(/\?/g, '').replace(/\s+/g, '_');
                 const inputFilePath = path_1.default.join(inputFolder, file);
-                const outputFilePath = path_1.default.join(outputFolder, `${path_1.default.parse(file).name}.webp`);
+                const outputFilePath = path_1.default.join(outputFolder, `${path_1.default.parse(sanitizedFileName).name}.webp`);
                 // Check if the file is an image
                 if (['.png', '.jpg', '.jpeg'].includes(path_1.default.extname(file).toLowerCase())) {
                     const image = (0, sharp_1.default)(inputFilePath);

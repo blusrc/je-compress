@@ -18,8 +18,10 @@ async function processImages() {
     const files = fs.readdirSync(inputFolder);
 
     for (const file of files) {
+      // Sanitize file name
+      const sanitizedFileName = file.replace(/\?/g, '').replace(/\s+/g, '_');
       const inputFilePath = path.join(inputFolder, file);
-      const outputFilePath = path.join(outputFolder, `${path.parse(file).name}.webp`);
+      const outputFilePath = path.join(outputFolder, `${path.parse(sanitizedFileName).name}.webp`);
 
       // Check if the file is an image
       if (['.png', '.jpg', '.jpeg'].includes(path.extname(file).toLowerCase())) {
